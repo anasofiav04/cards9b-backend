@@ -2,8 +2,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 dotenv.config();
 
-const MONGO_URI =
-  process.env.MONGO_URI_local || "mongodb://localhost:27017/cards";
+const MONGO_URI = process.env.MONGO_URI_local;
 
 export const connectDB = async () => {
   try {
