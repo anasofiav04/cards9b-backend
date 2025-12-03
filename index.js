@@ -9,7 +9,10 @@ connectDB();
 // Configuración de CORS
 app.use(
   cors({
-    origin: "[http://localhost:5173](https://cards9b.onrender.com)",
+    origin: [
+      "http://localhost:5173",
+      "[https://cards9b.onrender.com](https://cards9b.onrender.com)",
+    ], // Permitir localhost y tu frontend desplegado
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
@@ -17,10 +20,10 @@ app.use(
 
 app.use(express.json());
 
-//CREATE CARD
+// CREATE CARD
 app.post("/createCard", async (req, res) => {
   try {
-    const createCard = await Card.create(req.body); // corregido: Card en lugar de card
+    const createCard = await Card.create(req.body);
     res.status(201).json({
       message: "Card created successfully",
       data: createCard,
@@ -31,7 +34,7 @@ app.post("/createCard", async (req, res) => {
   }
 });
 
-//UPDATE CARD
+// UPDATE CARD
 app.put("/updateCard/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -57,7 +60,7 @@ res.status(200).json({
   }
 });
 
-//DELETE CARD
+// DELETE CARD
 app.delete("/deleteCard/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -75,19 +78,19 @@ res.status(200).json({ message: "Card deleted successfully" });
   }
 });
 
-//GET ALL CARDS
+// GET ALL CARDS
 app.get("/getAllCards", async (req, res) => {
   try {
-    const card = await Card.find();
-    console.log(card);
-    res.status(200).json(card);
+    const cards = await Card.find();
+    console.log(cards);
+    res.status(200).json(cards);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error fetching cards" });
   }
 });
 
-//GET CARD BY ID
+// GET CARD BY ID
 app.get("/getCard/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -99,7 +102,7 @@ app.get("/getCard/:id", async (req, res) => {
   }
 });
 
-//ENDPOINTS
+// ENDPOINTS
 app.get("/endpoints", async (req, res) => {
   try {
     const template = [
